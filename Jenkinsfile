@@ -17,8 +17,9 @@ node {
     }
 
     stage('Push Docker Image') {
-        withDockerRegistry([ credentialsId: "docker", url: "" ])
-        app.push("${env.BUILD_NUMBER}")
-        app.push("latest")
+        withDockerRegistry([ credentialsId: "docker", url: "" ]) {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
     }
 }
