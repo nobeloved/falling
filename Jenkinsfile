@@ -2,6 +2,10 @@ node {
 
     def app
 
+    stage('Clone Project Repository') {
+        checkout scm
+    }
+
     stage('Build Docker Image') {
         app = docker.build("falling")
     }
