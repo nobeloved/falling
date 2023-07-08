@@ -2,10 +2,6 @@ node {
 
     def app
 
-    environment {
-        DOCKER = credentials('docker')
-    }
-
     stage('Clone Project Repository') {
         checkout scm
     }
@@ -22,6 +18,9 @@ node {
     }
 
     stage('Push Docker Image') {
-        sh 'docker push falling'
+        docker.withRegistry('https://registry.hub.docker.com', 'docker') {
+            app.push("${env.BUILD_NUMBER}")
+            app.push("latest")
+        }
     }
 }
