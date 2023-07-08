@@ -7,7 +7,7 @@ node {
     }
 
     stage('Build Docker Image') {
-        app = docker.build("falling")
+        app = docker.build("nullstatic/falling:latest")
     }
 
     stage('Test Docker Image') {
