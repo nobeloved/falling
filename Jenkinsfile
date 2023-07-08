@@ -11,7 +11,6 @@ node {
     }
 
     stage('Test Docker Image') {
-        sh 'echo $DOCKER_PSW | docker login -u $DOCKER_USR --password-stdin'
         app.inside {
             sh 'echo "No tests; passed all."'
         }
