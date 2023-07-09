@@ -7,7 +7,7 @@ node {
     }
 
     stage('Build Docker Image') {
-        app = docker.build("nullstatic/falling:latest")
+        app = docker.build("nullstatic/falling")
     }
 
     stage('Test Docker Image') {
@@ -18,8 +18,7 @@ node {
 
     stage('Push Docker Image') {
         withDockerRegistry([ credentialsId: "docker", url: "" ]) {
-            app.push("${env.BUILD_NUMBER}")
-            app.push("latest")
+            app.push()
         }
     }
 }
