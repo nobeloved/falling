@@ -4,6 +4,7 @@ let nums1 = '2,2';
 let nums2 = '2,-2';
 let nums3 = '-1,-1';
 let nums4 = '0,7';
+let nums5 = '2,1,1';
 
 test('Adding two numbers (' + nums1 + ') gives their sum.', () => {
     expect(basic.add(nums1)).toBe(4);
@@ -35,4 +36,12 @@ test('Adding two numbers (' + nums4 + ') gives their sum.', () => {
 
 test('Subtracting two numbers (' + nums4 + ') gives their difference.', () => {
     expect(basic.subtract(nums4)).toBe(-7);
+})
+
+test('Adding three numbers (' + nums5 + ') gives their sum.', () => {
+    expect(basic.add(nums5)).toBe(4);
+})
+
+test('Subtracting three numbers (' + nums5 + ') gives their difference.', () => {
+    expect(basic.subtract(nums5)).toBe(0);
 })
