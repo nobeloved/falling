@@ -7,18 +7,30 @@ pipeline {
     stages {
 
         stage('Build') {
-            app = docker.build("nullstatic/falling")
+            steps {
+                script {
+                    app = docker.build("nullstatic/falling")
+                }
+            }
         }
 
         stage('Test') {
-            app.inside {
-                sh 'echo "No tests; passed all."'
+            steps {
+                script {
+                    app.inside {
+                        sh 'echo "No tests; passed all."'
+                    }
+                }
             }
         }
 
         stage('Push') {
-            withDockerRegistry([ credentialsId: "docker", url: "" ]) {
-                app.push()
+            steps {
+                script {
+                    withDockerRegistry([ credentialsId: "docker", url: "" ]) {
+                        app.push()
+                    }
+                }
             }
         }
     }
