@@ -1,24 +1,37 @@
-node {
+#!/usr/bin/env groovy
 
-    def app
+pipeline {
+    
+    agent any
 
-    stage('Checkout') {
-        checkout scm
-    }
+    stages {
 
-    stage('Build') {
-        app = docker.build("nullstatic/falling")
-    }
-
-    stage('Test') {
-        app.inside {
-            sh 'echo "No tests; passed all."'
+        stage('Build') {
+            steps {
+                script {
+                    app = docker.build("nullstatic/falling")
+                }
+            }
         }
-    }
 
-    stage('Push') {
-        withDockerRegistry([ credentialsId: "docker", url: "" ]) {
-            app.push()
+        stage('Test') {
+            steps {
+                script {
+                    app.inside {
+                        sh 'echo "No tests; passed all."'
+                    }
+                }
+            }
+        }
+
+        stage('Push') {
+            steps {
+                script {
+                    withDockerRegistry([ credentialsId: "docker", url: "" ]) {
+                        app.push()
+                    }
+                }
+            }
         }
     }
 }
