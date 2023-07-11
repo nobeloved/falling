@@ -1,7 +1,20 @@
+import React from 'react'
 import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  
+  const [data, setData] = React.useState(null);
+
+  React.useEffect(() => {
+    fetch("/api")
+      .then((res) => {
+        console.log(res);
+        return res.json();
+      }).then((data) => setData(data.message))
+      .catch((error) => console.error(error.message))
+  }, []);
+
   return (
     <div className="App">
       <header className="App-header">
@@ -17,6 +30,7 @@ function App() {
         >
           Learn React
         </a>
+        <p>{!data ? "Loading..." : data}</p>
       </header>
     </div>
   );
